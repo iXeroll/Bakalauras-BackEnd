@@ -87,6 +87,12 @@ class DeletePost(generics.RetrieveDestroyAPIView):
     serializer_class = PostSerializer
 
 
+class CreateOrder(generics.CreateAPIView):
+    permission_classes = [AllowAny]
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
 class UserOrders(generics.ListAPIView):
     serializer_class = OrderSerializer
 
@@ -101,32 +107,6 @@ class PostReview(generics.ListAPIView):
     def get_queryset(self):
         item = self.kwargs.get("pk")
         return Review.objects.filter(post=item).order_by("-creationDate")
-
-
-# class PostList(viewsets.ViewSet):
-#     permission_classes = [IsAuthenticated]
-#     queryset = Post.postobjects.all()
-
-#     def list(self, request):
-#         serializer_class = PostSerializer(self.queryset, many=True)
-#         return Response(serializer_class.data)
-
-#     def retrieve(self, requst, pk=None):
-#         post = get_object_or_404(self.queryset, pk=pk)
-#         serializer_class = PostSerializer(post)
-#         return Response(serializer_class.data)
-
-
-# # Create your views here.
-# class PostList(generics.ListCreateAPIView):
-#     queryset = Post.postobjects.all()
-#     serializer_class = PostSerializer
-
-
-# class PostDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
-#     permission_classes = [PostUserWritePermission]
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
 
 
 """
