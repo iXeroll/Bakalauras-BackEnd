@@ -48,3 +48,15 @@ class Order(models.Model):
     completionDate = models.DateField(null=True)
 
     objects = models.Manager()
+
+
+class Review(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
+    title = models.CharField(max_length=250)
+    comment = models.CharField(max_length=250)
+    creationDate = models.DateField(default=timezone.now)
+
+    objects = models.Manager()

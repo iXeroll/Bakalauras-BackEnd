@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from paslaugos.models import Post, Order
+from paslaugos.models import Post, Order, Review
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .serializers import PostSerializer, OrderSerializer
+from .serializers import PostSerializer, OrderSerializer, ReviewSerializer
 from rest_framework.permissions import (
     SAFE_METHODS,
     BasePermission,
@@ -93,6 +93,14 @@ class UserOrders(generics.ListAPIView):
     def get_queryset(self):
         item = self.kwargs.get("pk")
         return Order.objects.filter(buyer=item).order_by("-creationDate")
+
+
+class PostReview(generics.ListAPIView):
+    serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        item = self.kwargs.get("pk")
+        return Review.objects.filter(post=item).order_by("-creationDate")
 
 
 # class PostList(viewsets.ViewSet):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from paslaugos.models import Post, Order
+from paslaugos.models import Post, Order, Review
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -32,3 +32,9 @@ class OrderSerializer(serializers.ModelSerializer):
             "creationDate",
             "completionDate",
         )
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ("id", "post", "author", "title", "comment", "creationDate")

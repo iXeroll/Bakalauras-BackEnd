@@ -6,6 +6,7 @@ from .views import (
     DeletePost,
     UpdatePost,
     UserOrders,
+    PostReview,
 )
 from rest_framework.routers import DefaultRouter
 from django.urls import path
@@ -26,6 +27,8 @@ urlpatterns = [
     path("admin/edit/<int:pk>", UpdatePost().as_view(), name="updatePost"),
     ## User orders
     path("admin/order/<int:pk>/", UserOrders().as_view(), name="orderBuyerView"),
+    ## User reviews
+    path("review/<int:pk>/", PostReview().as_view(), name="postReview"),
 ]
 
 
