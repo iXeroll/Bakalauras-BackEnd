@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from paslaugos.models import Post
+from paslaugos.models import Post, Order
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .serializers import PostSerializer
+from .serializers import PostSerializer, OrderSerializer
 from rest_framework.permissions import (
     SAFE_METHODS,
     BasePermission,
@@ -61,12 +61,6 @@ class UserPostDetails(generics.ListAPIView):
         return Post.objects.filter(author=item).order_by("-updateDate")
 
 
-# class CreatePost(generics.CreateAPIView):
-#     permission_classes = [PostUserWritePermission]
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-
-
 class CreatePost(APIView):
     permission_classes = [AllowAny]
     parser_classes = [MultiPartParser, FormParser]
@@ -91,6 +85,14 @@ class DeletePost(generics.RetrieveDestroyAPIView):
     permission_classes = [AllowAny]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+
+class UserOrders(generics.ListAPIView):
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        item = self.kwargs.get("pk")
+        return Order.objects.filter(buyer=item).order_by("-creationDate")
 
 
 # class PostList(viewsets.ViewSet):

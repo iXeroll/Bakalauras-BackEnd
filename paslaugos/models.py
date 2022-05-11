@@ -30,3 +30,21 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Order(models.Model):
+
+    buyer = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="buyer"
+    )
+    seller = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="seller"
+    )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=250, null=True)
+    status = models.CharField(max_length=250)
+    price = models.PositiveIntegerField(default=0)
+    creationDate = models.DateField(default=timezone.now)
+    completionDate = models.DateField(null=True)
+
+    objects = models.Manager()
