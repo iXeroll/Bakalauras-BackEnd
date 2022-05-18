@@ -106,7 +106,11 @@ class OrdersFromUser(generics.ListAPIView):
 
     def get_queryset(self):
         item = self.kwargs.get("pk")
-        return Order.objects.filter(seller=item).order_by("-creationDate")
+        return (
+            Order.objects.filter(seller=item)
+            .exclude(status="atšauktas")
+            .order_by("-creationDate")
+        )
 
 
 class UpdateOrder(generics.UpdateAPIView):

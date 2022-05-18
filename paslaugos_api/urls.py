@@ -33,7 +33,7 @@ urlpatterns = [
     path(
         "admin/order/sell/<int:pk>/", OrdersFromUser().as_view(), name="orderSellerView"
     ),
-    path("admin/order/update/<int:pk>/", UpdateOrder().as_view(), name="UpdateOrder"),
+    path("admin/order/update/<int:pk>", UpdateOrder().as_view(), name="UpdateOrder"),
     path("admin/order/create", CreateOrder().as_view(), name="createOrder"),
     ## User reviews
     path("review/<int:pk>/", PostReview().as_view(), name="postReview"),
