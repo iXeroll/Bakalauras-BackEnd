@@ -6,6 +6,7 @@ from .views import (
     DeletePost,
     UpdatePost,
     UserOrders,
+    OrdersFromUser,
     PostReview,
     CreateOrder,
 )
@@ -27,7 +28,10 @@ urlpatterns = [
     path("admin/delete/<int:pk>", DeletePost().as_view(), name="deletePost"),
     path("admin/edit/<int:pk>", UpdatePost().as_view(), name="updatePost"),
     ## User orders
-    path("admin/order/<int:pk>/", UserOrders().as_view(), name="orderBuyerView"),
+    path("admin/order/buy/<int:pk>/", UserOrders().as_view(), name="orderBuyerView"),
+    path(
+        "admin/order/sell/<int:pk>/", OrdersFromUser().as_view(), name="orderSellerView"
+    ),
     path("admin/order/create", CreateOrder().as_view(), name="createOrder"),
     ## User reviews
     path("review/<int:pk>/", PostReview().as_view(), name="postReview"),

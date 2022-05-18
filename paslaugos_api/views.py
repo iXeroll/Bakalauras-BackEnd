@@ -101,6 +101,14 @@ class UserOrders(generics.ListAPIView):
         return Order.objects.filter(buyer=item).order_by("-creationDate")
 
 
+class OrdersFromUser(generics.ListAPIView):
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        item = self.kwargs.get("pk")
+        return Order.objects.filter(seller=item).order_by("-creationDate")
+
+
 class PostReview(generics.ListAPIView):
     serializer_class = ReviewSerializer
 
