@@ -109,6 +109,12 @@ class OrdersFromUser(generics.ListAPIView):
         return Order.objects.filter(seller=item).order_by("-creationDate")
 
 
+class UpdateOrder(generics.UpdateAPIView):
+    permission_classes = [AllowAny]
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
 class PostReview(generics.ListAPIView):
     serializer_class = ReviewSerializer
 
